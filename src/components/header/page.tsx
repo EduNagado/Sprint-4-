@@ -1,8 +1,7 @@
-"use client"; 
-
 import Image from 'next/image';
-import { LuUser } from "react-icons/lu";
 import Link from 'next/link';
+import { LuUser } from "react-icons/lu";
+import { MdDirectionsCar } from "react-icons/md";
 
 export default function Header() {
     return (
@@ -17,7 +16,6 @@ export default function Header() {
             </nav>
             <Link href={"/"}>
                 <Image
-                    
                     className='flex items-center justify-center mx-auto'
                     src="/imgHome/Logo.png"
                     alt="Logo"
@@ -25,9 +23,19 @@ export default function Header() {
                     height={110}
                 />
             </Link>
-    
+
+            <div className="flex items-center space-x-4">
                 {/* Ícone do usuário */}
-                <LuUser className="text-3xl cursor-pointer " />
+                <Link href={"/Login"}>
+                    <LuUser className="text-3xl cursor-pointer" />
+                </Link>
+                
+                {/* Ícone do carro */}
+                <Link href={"/CadastroCarro"}>
+                    <MdDirectionsCar  className="text-3xl cursor-pointer" />
+                </Link>
+                
+            </div>
         </div>
     );
 }
