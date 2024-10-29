@@ -1,7 +1,8 @@
-'use client'
+"use client";
 
 import { useState } from 'react';
 import { DialogPanel } from '@headlessui/react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -27,18 +28,18 @@ export default function Home() {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
             <h1 className="text-2xl font-bold tracking-tight text-white sm:text-5xl">
-            Diagnósticos automotivos precisos com IA treinada{" "}
+              Diagnósticos automotivos precisos com IA treinada{" "}
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-300">
               Transformando o agendamento e a experiência do cliente com soluções inteligentes
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
+              <Link
+                href="/ia"
                 className="rounded-md bg-sky-600 px-3.5 py-2.5 text-sm font-medium uppercase mb-[2px] text-white shadow-sm"
               >
                 Fale com nossa Assistente Virtual.
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -56,5 +57,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
