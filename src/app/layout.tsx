@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google"; 
 import "./globals.css";
-import Header from "@/components/header/page";
-import Footer from "@/components/footer/page";
 
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400", "700"] });
 

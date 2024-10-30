@@ -1,7 +1,7 @@
 "use client";
 import Footer from '@/components/footer/page';
 import Header from '@/components/header/page';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 
 type Message = {
   text: string;

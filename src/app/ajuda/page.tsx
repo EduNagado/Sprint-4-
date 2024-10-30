@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { CogIcon } from '@heroicons/react/20/solid';
 import { LightBulbIcon } from '@heroicons/react/20/solid';
 
@@ -44,7 +45,7 @@ export default function Ajuda() {
               </dl>
             </div>
           </div>
-          <img
+          <Image
             alt="Product screenshot"
             src="/imgHome/suportePorto.png"
             width={2432}

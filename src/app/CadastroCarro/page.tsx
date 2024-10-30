@@ -1,4 +1,3 @@
-import Footer from '@/components/footer/page';
 import Header from '@/components/header/page';
 import Link from 'next/link';
 

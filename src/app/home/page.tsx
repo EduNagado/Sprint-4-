@@ -1,17 +1,17 @@
 "use client";
-
-import { useState } from 'react';
-import { DialogPanel } from '@headlessui/react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
     <div id='home' className="bg-black">
       <div className="relative isolate overflow-hidden py-12 px-2 md:px-0">
-        <img
+        <Image
           src="/imgHome/Home1.jpg"
           alt=""
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
+          layout="fill"
+          objectFit="cover"
+          className="absolute inset-0 -z-10 h-full w-full opacity-25"
         />
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"

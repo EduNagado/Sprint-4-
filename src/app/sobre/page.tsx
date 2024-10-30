@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const people = [
   {
     name: 'Eduardo Henrique S. Nagado',
@@ -16,7 +18,7 @@ const people = [
     role: 'MateusSilveiraCezar',
     github: 'https://github.com/MateusSilveiraCezar',
     imageSrc: '/imgSobre/mateus.jpg',
-  }
+  },
 ];
 
 export default function Sobre() {
@@ -28,16 +30,24 @@ export default function Sobre() {
             Nosso time
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-          Somos um grupo de programadores apaixonados pelo que fazemos e dedicados a entregar os melhores resultados para nossos clientes.
+            Somos um grupo de programadores apaixonados pelo que fazemos e dedicados a entregar os melhores resultados para nossos clientes.
           </p>
         </div>
         <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
           {people.map((person) => (
             <li key={person.name}>
               <div className="flex items-center gap-x-6">
-                <img alt="" src={person.imageSrc} className="h-16 w-16 rounded-full" />
+                <Image 
+                  alt={`${person.name}`} 
+                  src={person.imageSrc} 
+                  width={64} 
+                  height={64} 
+                  className="h-16 w-16 rounded-full"
+                />
                 <div>
-                  <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{person.name}</h3>
+                  <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                    {person.name}
+                  </h3>
                   <a 
                     href={person.github} 
                     target="_blank" 
