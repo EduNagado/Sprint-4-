@@ -27,7 +27,7 @@ export default function Ajuda() {
                 Automação e Inteligência
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                Na MEF, buscamos oferecer diagnósticos veiculares precisos e confiáveis, integrando tecnologias avançadas em cada etapa do processo. Nosso objetivo é simplificar e otimizar a experiência de manutenção automotiva para nossos clientes.
+              Na MEF, temos como meta proporcionar diagnósticos veiculares exatos e confiáveis, incorporando tecnologias avançadas em todas as fases do processo. Nosso propósito é facilitar e aprimorar a experiência de manutenção automotiva para nossos clientes.
               </p>
               <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                 {features.map((feature) => (
