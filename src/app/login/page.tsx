@@ -4,34 +4,54 @@ import Header from '@/components/header/page';
 import '../login/login.css';
 import { useState } from 'react';
 import Footer from '@/components/footer/page';
+import {useForm} from'react-hook-form';
 
 export default function Login() {
   const [isActive, setIsActive] = useState(false);
+  const {register, handleSubmit} = useForm ();
+  function handleSignIn (data:any) {
+    console.log(data)
+  }
+  async function handleRegister(data: any) {
+    try {
+        console.log(data);
+    } catch (error) {
+        console.error("Erro ao cadastrar:", error);
+    }
+}
 
+  
   return (
     <>
       <Header />
       <section className="flex justify-center items-center h-screen">
         <div className={`container ${isActive ? 'active' : ''}`} id="container">
           <div className={`form-container sign-up ${isActive ? 'opacity-100' : 'opacity-0'}`}>
-            <form>
+            <form onSubmit={handleSubmit(handleRegister)}>
               <h1>Criar Conta</h1>
               <span>ou use seu e-mail para registro</span>
-              <input type="usuario" placeholder="Nome" />
-              <input type="password" placeholder="Senha" />
+              
+              <input {...register('user')}id='user' type="usuario" placeholder="Nome"/>
+              <input {...register('senha')}id='senha' type="password" placeholder="Senha"/>
+              <input {...register('email')}id='email' type="email" placeholder="email"/>
+              <input {...register('telefone')}id='telefone' type="text" placeholder="Telefone"/>
+              <input {...register('cpf')}id='cpf' type="text" placeholder="CPF"/>
+              {/* <input type="password" placeholder="Senha" />
               <input type="email" placeholder="E-mail" />
               <input type="text" placeholder="Telefone" />
-              <input type="text" placeholder="CPF" />
-              <button type="button">Cadastrar</button>
+              <input type="text" placeholder="CPF" /> */}
+              <button type="submit">Cadastrar</button>
             </form>
           </div>
           <div className={`form-container sign-in ${isActive ? 'opacity-0' : 'opacity-100'}`}>
-            <form>
+            <form onSubmit={handleSubmit(handleSignIn)}>
               <h1>Login</h1>
-              <input type="usuario" placeholder="Nome" />
-              <input type="password" placeholder="Senha" />
+              <input {...register('user')}id='user' type="usuario" placeholder="Nome"/>
+              <input {...register('senha')}id='senha' type="password" placeholder="Senha"/>
+              {/* <input id='user' type="usuario" placeholder="Nome" />
+              <input type="password" placeholder="Senha" /> */}
               <a href="#">Esqueceu sua Senha?</a>
-              <button type="button">Entrar</button>
+              <button type="submit">Entrar</button>
             </form>
           </div>
           <div className="toggle-container">
