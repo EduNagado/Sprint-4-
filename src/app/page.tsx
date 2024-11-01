@@ -5,6 +5,7 @@ import Ajuda from "./ajuda/page";
 import "./globals.css";
 import Home from "./home/page";
 import Sobre from "./sobre/page";
+import WatsonChat from "./WatsonChat/page";
 
 // Importamos dois icons: npm install @heroicons/react / npm install react-icons/  npm install @headlessui/react
 
@@ -16,6 +17,7 @@ export default function App() {
       <Ajuda />
       <Sobre />
       <AreaDeAtuacao />
+      <WatsonChat/>
       <Footer />
 
     </>
