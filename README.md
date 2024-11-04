@@ -40,15 +40,15 @@ Para o funcionamento adequado do site, os seguintes pacotes foram instalados:
   ```bash
   npm install @heroicons/react
 
-  - `react-icons`: Uma biblioteca com diversos ícones para uso geral.
+- `react-icons`: Uma biblioteca com diversos ícones para uso geral.
   ```bash
   npm install react-icons
 
-   - `@headlessui/react`: Fornece componentes interativos e acessíveis, como menus e diálogos, que facilitam a criação de uma interface amigável.
+- `@headlessui/react`: Fornece componentes interativos e acessíveis, como menus e diálogos, que facilitam a criação de uma interface amigável.
   ```bash
   npm install @headlessui/react
 
- - `uuid`: Utilizado para a geração de identificadores únicos, essencial para o cadastro de novos elementos, como veículos.
+- `uuid`: Utilizado para a geração de identificadores únicos, essencial para o cadastro de novos elementos, como veículos.
   ```bashaxios
   npm install uuid
 
