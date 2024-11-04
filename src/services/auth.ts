@@ -31,7 +31,8 @@ export async function recoverUserInformation() {
     };
 }
 
-export async function registerRequest({ name, telefone, cpf, email, password }: { name: string; telefone: string; cpf: string; email: string; password: string; }) {
+export async function registerRequest(data: { name: string; telefone: string; cpf: string; email: string; password: string; }) {
+    const { name, telefone, cpf, email, password } = data; 
     const response = await api.post('/register', { name, telefone, cpf, email, password }); 
     return response.data;
 }
