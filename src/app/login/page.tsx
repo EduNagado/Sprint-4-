@@ -3,36 +3,50 @@
 import Footer from '@/components/footer/page';
 import Header from '@/components/header/page';
 import { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { AuthContext } from '../contexts/AuthContext'; // Import do contexto de autenticação
-import { registerUser } from '@/services/api'; // Função de cadastro
-import { RegisterResponse } from '@/services/axios'; // Tipo de resposta do cadastro
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { AuthContext } from '../contexts/AuthContext'; 
+import { registerUser } from '@/services/api'; 
+import { RegisterResponse } from '@/services/axios'; 
+import '../login/login.css';
+
+type LoginData = {
+  email: string;
+  password: string;
+};
+
+type RegisterData = {
+  name: string;
+  email: string;
+  password: string;
+  telefone: string;
+  cpf: string;
+};
 
 export default function Login() {
   const [isActive, setIsActive] = useState(false);
-  const { register, handleSubmit, reset } = useForm();
-  const { signIn } = useContext(AuthContext); // Função de login do contexto
+  const { register, handleSubmit, reset } = useForm<RegisterData>();
+  const { signIn } = useContext(AuthContext); 
 
-  // Função de Login
-  async function handleSignIn(data: any) {
+
+  const handleSignIn: SubmitHandler<LoginData> = async (data) => {
     try {
       await signIn(data);
     } catch (error) {
       console.error("Erro ao logar:", error);
     }
-  }
+  };
 
-  // Função de Cadastro
-  async function handleRegister(data: any) {
+
+  const handleRegister: SubmitHandler<RegisterData> = async (data) => {
     try {
       const response: RegisterResponse = await registerUser(data);
       console.log(response.message);
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
     }
-  }
+  };
 
-  // Alternar entre Login e Cadastro
+
   const toggleForm = (isSignUp: boolean) => {
     setIsActive(isSignUp);
     reset();
@@ -47,11 +61,11 @@ export default function Login() {
             <form onSubmit={handleSubmit(handleRegister)}>
               <h1>Criar Conta</h1>
               <span>ou use seu e-mail para registro</span>
-              <input {...register('name')} type="text" placeholder="Nome" />
-              <input {...register('email')} type="email" placeholder="Email" />
-              <input {...register('password')} type="password" placeholder="Senha" />
-              <input {...register('telefone')} type="text" placeholder="Telefone" />
-              <input {...register('cpf')} type="text" placeholder="CPF" />
+              <input {...register('name')} type="text" placeholder="Nome" required />
+              <input {...register('email')} type="email" placeholder="Email" required />
+              <input {...register('password')} type="password" placeholder="Senha" required />
+              <input {...register('telefone')} type="text" placeholder="Telefone" required />
+              <input {...register('cpf')} type="text" placeholder="CPF" required />
               <button type="submit">Cadastrar</button>
             </form>
           </div>
@@ -59,8 +73,8 @@ export default function Login() {
           <div className={`form-container sign-in ${isActive ? 'opacity-0' : 'opacity-100'}`}>
             <form onSubmit={handleSubmit(handleSignIn)}>
               <h1>Login</h1>
-              <input {...register('email')} type="email" placeholder="Email" />
-              <input {...register('password')} type="password" placeholder="Senha" />
+              <input {...register('email')} type="email" placeholder="Email" required />
+              <input {...register('password')} type="password" placeholder="Senha" required />
               <a href="#">Esqueceu sua Senha?</a>
               <button type="submit">Entrar</button>
             </form>
