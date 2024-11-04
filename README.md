@@ -24,6 +24,39 @@ A estrutura do sistema está organizada da seguinte maneira:
 
 - **page.tsx**: Arquivo fora das pastas que contém a implementação das páginas do site.
 
-## Conclusão
+## Arquitetura de Serviços
 
-Este site tem como objetivo proporcionar uma experiência informativa e interativa, facilitando o acesso a informações automotivas através de uma interface amigável e apoiada por inteligência artificial.
+Dentro da pasta `src/services`, há três arquivos principais que facilitam a comunicação com a API e o gerenciamento da autenticação e funcionalidades do site:
+
+- **api.ts**: Centraliza as APIs utilizadas no site, permitindo fácil manutenção e reutilização das chamadas de API em diferentes partes do projeto.
+- **auth.ts**: Arquivo auxiliar usado para testes locais e offline enquanto a API em Java não está integrada. Ele simula funcionalidades de autenticação.
+- **axios.ts**: Configura o cliente Axios para manipulação das APIs de autenticação e de cadastro de veículos, centralizando as operações de login, registro de usuários e cadastro de veículos.
+
+## Pacotes Instalados
+
+Para o funcionamento adequado do site, os seguintes pacotes foram instalados:
+
+- `@heroicons/react`: Pacote de ícones para enriquecer a interface visual do site.
+  ```bash
+  npm install @heroicons/react
+
+- `react-icons`: Uma biblioteca com diversos ícones para uso geral.
+  ```bash
+  npm install react-icons
+
+- `@headlessui/react`: Fornece componentes interativos e acessíveis, como menus e diálogos, que facilitam a criação de uma interface amigável.
+  ```bash
+  npm install @headlessui/react
+
+- `uuid`: Utilizado para a geração de identificadores únicos, essencial para o cadastro de novos elementos, como veículos.
+  ```bashaxios
+  npm install uuid
+
+- `axios`: Cliente HTTP para lidar com as requisições e respostas da API de forma eficiente.
+  ```bash
+  npm install axios
+
+- `nookies`: Auxilia na manipulação de cookies, o que é útil para gerenciar tokens de autenticação e sessões de usuário.
+  ```bash
+  npm install nookies
+
