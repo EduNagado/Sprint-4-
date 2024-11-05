@@ -1,88 +1,148 @@
+'use client'
+import { useState } from 'react';
 import Header from '@/components/header/page';
 import Link from 'next/link';
 
-export default function CadastroCarro() {
+export default function CadastroVeiculo() {
+    const [formData, setFormData] = useState({
+        usuario: '',
+        marca: '',
+        modelo: '',
+        placa: '',
+        ano: '',
+        kmRodados: '',
+    });
+
+    const [message, setMessage] = useState('');
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = event.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); 
+
+        try {
+            const response = await fetch('/api/cadastroVeiculo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setMessage(data.message); 
+                setFormData({ usuario: '', marca: '', modelo: '', placa: '', ano: '', kmRodados: '' }); 
+            } else {
+                setMessage(data.message); 
+            }
+        } catch (error) {
+            console.error('Erro ao cadastrar veículo:', error);
+            setMessage('Erro ao cadastrar veículo. Tente novamente mais tarde.');
+        }
+    };
+
     return (
         <>
             <Header />
             <div className="flex justify-center mt-8">
                 <div className="w-full max-w-2xl p-6 bg-white border border-gray-300 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold text-center text-gray-900 mb-6">Cadastre seu veículo</h2>
-                    <form id='CadastroCarro'>
+                    {message && <p className="text-center text-red-600">{message}</p>}
+                    <form onSubmit={handleSubmit} id='CadastroCarro'>
                         <div className="space-y-12">
                             <div className="border-b border-gray-900/10 pb-12">
                                 <div className="sm:col-span-4">
-                                    <label htmlFor="Usuario" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Usuário
+                                    <label htmlFor="usuario" className="block text-sm font-medium leading-6 text-gray-900">
+                                        Usuário (Email)
                                     </label>
                                     <div className="mt-2">
                                         <input
-                                            id="Usuario"
-                                            name="Usuario"
+                                            id="usuario"
+                                            name="usuario"
                                             type="text"
-                                            autoComplete="address-level2"
-                                            className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" />
+                                            value={formData.usuario}
+                                            onChange={handleChange}
+                                            className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" 
+                                            required
+                                        />
                                     </div>
                                     <p>Não possui uma conta? <Link href="/login" className="text-indigo-600">Cadastre-se</Link></p>
                                 </div>
 
                                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                     <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="Marca" className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="marca" className="block text-sm font-medium leading-6 text-gray-900">
                                             Marca
                                         </label>
                                         <div className="mt-2">
                                             <input
-                                                id="Marca"
-                                                name="Marca"
+                                                id="marca"
+                                                name="marca"
                                                 type="text"
-                                                autoComplete="address-level2"
-                                                className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" />
+                                                value={formData.marca}
+                                                onChange={handleChange}
+                                                className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" 
+                                                required
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="sm:col-span-2">
-                                        <label htmlFor="Modelo" className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="modelo" className="block text-sm font-medium leading-6 text-gray-900">
                                             Modelo
                                         </label>
                                         <div className="mt-2">
                                             <input
-                                                id="Modelo"
-                                                name="Modelo"
+                                                id="modelo"
+                                                name="modelo"
                                                 type="text"
-                                                autoComplete="address-level1"
-                                                className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" />
+                                                value={formData.modelo}
+                                                onChange={handleChange}
+                                                className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" 
+                                                required
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="sm:col-span-2">
-                                        <label htmlFor="Placa" className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="placa" className="block text-sm font-medium leading-6 text-gray-900">
                                             Placa
                                         </label>
                                         <div className="mt-2">
                                             <input
-                                                id="Placa"
-                                                name="Placa"
+                                                id="placa"
+                                                name="placa"
                                                 type="text"
-                                                autoComplete="postal-code"
-                                                className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" />
+                                                value={formData.placa}
+                                                onChange={handleChange}
+                                                className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6" 
+                                                required
+                                            />
                                         </div>
                                     </div>
 
                                     <div className="sm:col-span-3">
-                                        <label htmlFor="Ano" className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="ano" className="block text-sm font-medium leading-6 text-gray-900">
                                             Ano
                                         </label>
                                         <div className="mt-2">
                                             <select
-                                                id="Ano"
-                                                name="Ano"
-                                                autoComplete="Ano"
+                                                id="ano"
+                                                name="ano"
+                                                value={formData.ano}
+                                                onChange={handleChange}
                                                 className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                                                required
                                             >
-                                                <option value="" disabled selected hidden>Selecione um ano</option>
+                                                <option value="" disabled hidden>Selecione um ano</option>
                                                 {Array.from({ length: 45 }, (_, i) => 1980 + i).map(year => (
-                                                    <option key={year}>{year}</option>
+                                                    <option key={year} value={year}>{year}</option>
                                                 ))}
                                             </select>
                                         </div>
@@ -96,10 +156,12 @@ export default function CadastroCarro() {
                                             <select
                                                 id="kmRodados"
                                                 name="kmRodados"
-                                                autoComplete="kmRodados"
+                                                value={formData.kmRodados}
+                                                onChange={handleChange}
                                                 className="block w-full rounded-md border-0 py-1.5 text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                                                required
                                             >
-                                                <option value="" disabled selected hidden>Selecione a KM correspondente</option>
+                                                <option value="" disabled hidden>Selecione a KM correspondente</option>
                                                 <option>10 km</option>
                                                 <option>30 km</option>
                                                 <option>50 km</option>
@@ -139,7 +201,6 @@ export default function CadastroCarro() {
                     </form>
                 </div>
             </div>
-
         </>
     );
 }
