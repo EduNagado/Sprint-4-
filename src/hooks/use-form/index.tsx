@@ -1,16 +1,16 @@
-import { ChangeEvent, FormEvent, RefObject, useCallback, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, RefObject, useCallback, useEffect, useState } from 'react';
 
 export interface FormState {
-  [key: string]: any
+  [key: string]: any;
 }
 
 interface ErrorsState {
-  [key: string]: string
+  [key: string]: string;
 }
 
-type SetCustomErrorsFunction = (target: HTMLFormElement) => ErrorsState
+type SetCustomErrorsFunction = (target: HTMLFormElement) => ErrorsState;
 
-type SubmitCallbackFunction = (values: FormState, target?: FormEvent<HTMLFormElement>) => Promise<void>
+type SubmitCallbackFunction = (values: FormState, target?: FormEvent<HTMLFormElement>) => Promise<void>;
 
 export default function useForm(
   formRef: RefObject<HTMLFormElement>,
@@ -19,98 +19,99 @@ export default function useForm(
   errorCallback?: (error: Error) => Promise<void>,
   setCustomErrors?: SetCustomErrorsFunction, 
 ) {
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState<FormState>(initialState)
-  const [errors, setErrors] = useState<ErrorsState>({})
-  const [errorsCount, setErrorsCount] = useState(0)
-  const form = formRef.current
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<FormState>(initialState);
+  const [errors, setErrors] = useState<ErrorsState>({});
+  const [errorsCount, setErrorsCount] = useState(0);
+  const form = formRef.current;
 
   useEffect(() => {
-    handleErros()
-  }, [form])
+    handleErros();
+  }, [form]);
 
   const countErrors = (errorsObject: ErrorsState) => {
-    const count = Object.keys(errorsObject).length
-    setErrorsCount(count)
-    return count
-  }
+    const count = Object.keys(errorsObject).length;
+    setErrorsCount(count);
+    return count;
+  };
 
   const validateDefault = useCallback(() => {
     if (form === null) {
-      return {}
+      return {};
     }
-    const formData = new FormData(form)
-    const isFormValid = form.checkValidity()
+    const formData = new FormData(form);
+    const isFormValid = form.checkValidity();
 
-    const newErrors: ErrorsState = {}
+    const newErrors: ErrorsState = {};
     if (!isFormValid) {
-      for (const [name] of formData) {
-        const element = form.elements.namedItem(name)
+      const entries = Array.from(formData.entries()); 
+      for (const [name] of entries) {
+        const element = form.elements.namedItem(name);
         if (element instanceof HTMLInputElement) {
-          newErrors[name] = element.validationMessage
+          newErrors[name] = element.validationMessage;
         }
       }
     }
-    return newErrors
-  }, [form])
+    return newErrors;
+  }, [form]);
 
   const handleErros = useCallback(async () => {
     if (form === null) {
-      return { validationErrors: {}, count: 0 }
+      return { validationErrors: {}, count: 0 };
     }
-    const newErrors = validateDefault()
-    const customErrors = setCustomErrors?.(form)
+    const newErrors = validateDefault();
+    const customErrors = setCustomErrors?.(form);
     const validationErrors = {
       ...newErrors,
       ...customErrors
-    }
-    setErrors(validationErrors)
-    const count = countErrors(validationErrors)
+    };
+    setErrors(validationErrors);
+    const count = countErrors(validationErrors);
 
     return {
       validationErrors,
       count
-    }
-  }, [validateDefault, setCustomErrors, form])
+    };
+  }, [validateDefault, setCustomErrors, form]);
 
   const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (loading) {
-      return
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
-    const { count, validationErrors } = await handleErros()
+    const { count, validationErrors } = await handleErros();
     if (count) {
-      setLoading(false)
+      setLoading(false);
       if (errorCallback instanceof Function) {
         await errorCallback(new Error('Invalid Form', {
           cause: {
             ...validationErrors
           }
-        }))
+        }));
       }
-      return
+      return;
     }
 
-    await submitCallback(data, e)
+    await submitCallback(data, e);
 
-    setLoading(false)
-  }, [loading, handleErros, submitCallback, data, errorCallback])
+    setLoading(false);
+  }, [loading, handleErros, submitCallback, data, errorCallback]);
 
   const handleChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setData((oldData) => {
       return {
         ...oldData,
         [name]: value
-      }
-    })
+      };
+    });
 
-    await handleErros()
-  }, [handleErros])
+    await handleErros();
+  }, [handleErros]);
 
   return {
     data,
@@ -119,5 +120,5 @@ export default function useForm(
     loadingSubmit: loading,
     handleChange,
     handleSubmit
-  }
+  };
 }
