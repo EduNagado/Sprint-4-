@@ -24,14 +24,14 @@ A estrutura do sistema está organizada da seguinte maneira:
 
 - **page.tsx**: Arquivo fora das pastas que contém a implementação das páginas do site.
 
-## Arquitetura de Serviços
+## Estrutura da Pasta `api`
 
-Dentro da pasta `src/services`, há três arquivos principais que facilitam a comunicação com a API e o gerenciamento da autenticação e funcionalidades do site:
+Dentro da pasta `src/api`, a estrutura foi reorganizada para gerenciar as funcionalidades de autenticação e cadastro de veículos:
 
-- **api.ts**: Centraliza as APIs utilizadas no site, permitindo fácil manutenção e reutilização das chamadas de API em diferentes partes do projeto.
-- **auth.ts**: Arquivo auxiliar usado para testes locais e offline enquanto a API em Java não está integrada. Ele simula funcionalidades de autenticação.
-- **axios.ts**: Configura o cliente Axios para manipulação das APIs de autenticação e de cadastro de veículos, centralizando as operações de login, registro de usuários e cadastro de veículos.
-
+- **cookie.ts**: Implementa a manipulação de cookies, útil para gerenciar tokens de autenticação e sessões de usuário.
+- **loginApi.ts**: Contém métodos de login para a API.
+- **registerApi.ts**: Inclui métodos para o registro de usuários na API.
+- **veiculoApi.ts**: Responsável pelos métodos de cadastro de veículos na API.
 ## Pacotes Instalados
 
 Para o funcionamento adequado do site, os seguintes pacotes foram instalados:
@@ -52,9 +52,9 @@ Para o funcionamento adequado do site, os seguintes pacotes foram instalados:
   ```bashaxios
   npm install uuid
 
-- `axios`: Cliente HTTP para lidar com as requisições e respostas da API de forma eficiente.
+- `cookie`: Para facilitar o gerenciamento de cookies de autenticação.
   ```bash
-  npm install axios
+  npm install cookie
 
 - `nookies`: Auxilia na manipulação de cookies, o que é útil para gerenciar tokens de autenticação e sessões de usuário.
   ```bash
